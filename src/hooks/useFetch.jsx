@@ -14,7 +14,9 @@ export const useFetch = (url) => {
           throw {
             error: true,
             status: response.status,
-            statusText: !response.statusText ? "Ocurrió un error" : response.statusText,
+            statusText: !response.statusText
+              ? "Ocurrió un error"
+              : response.statusText,
           };
         }
 
