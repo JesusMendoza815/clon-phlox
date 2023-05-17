@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.scss'
-import ShoppingCartButton from './shoppingCart'
+import ShoppingCartButton from './ShoppingCart'
 
 export default function Navbar() {
   return (
@@ -13,7 +13,7 @@ export default function Navbar() {
         <Link to='/blog' className='font-semibold ms-5'>Blog</Link>
         <Link to='/contact' className='font-semibold ms-5'>Contact Us</Link>
       </div>
-      <div>
+      <div className='flex items-center'>
         <Link to='/login' className='font-semibold'>login</Link>
         <button className='font-semibold ms-5 me-2'>Search</button>
         <ShoppingCartButton />
