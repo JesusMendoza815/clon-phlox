@@ -12,6 +12,10 @@ body {
   padding: 0 6rem;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 h5 {
   font-weight: 700;
   font-size: 1.7rem;

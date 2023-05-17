@@ -1,10 +1,9 @@
+import { Link } from "react-router-dom";
 import { BASE_URL } from "../constants/contansts";
 import { useFetch } from "../hooks/useFetch";
 import PropTypes from "prop-types";
-
 export default function BestSellerProudcts() {
   const { data, error } = useFetch(`${BASE_URL}?limit=8`);
-  console.log(error, data);
   return (
     <>
       <span className="text-center">
@@ -28,9 +27,9 @@ export default function BestSellerProudcts() {
 }
 
 function CardBestSellerProduct({ data }) {
-  const { title, price, image } = data;
+  const { title, price, image, id } = data;
   return (
-    <div className="card-best-seller w-[90%] mt-5">
+    <Link to={`/products/${id}`} className="card-best-seller w-[90%] mt-5">
       <img
         src={image}
         alt={`image ${title}`}
@@ -38,7 +37,7 @@ function CardBestSellerProduct({ data }) {
       />
       <h6>{title.split(" ").splice(0, 4).join(" ")}</h6>
       <p className="font-bold">${price}</p>
-    </div>
+    </Link>
   );
 }
 
