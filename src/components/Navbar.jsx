@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.scss'
+import ShoppingCartButton from './shoppingCart'
 
 export default function Navbar() {
   return (
@@ -15,7 +16,7 @@ export default function Navbar() {
       <div>
         <Link to='/login' className='font-semibold'>login</Link>
         <button className='font-semibold ms-5 me-2'>Search</button>
-        <button className='font-semibold'>Cart</button>
+        <ShoppingCartButton />
       </div>
     </nav>
   )
