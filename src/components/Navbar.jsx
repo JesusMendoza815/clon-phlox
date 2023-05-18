@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import "../styles/Navbar.scss";
+import { AuthContext } from "../Context/AuthContext";
+import { useContext } from "react";
 
 export default function Navbar() {
+  const { isToken } = useContext(AuthContext);
   return (
     <nav className="flex justify-between items-center h-[4rem]">
       <div>
@@ -25,8 +28,8 @@ export default function Navbar() {
         </Link>
       </div>
       <div>
-        <Link to="/login" className="font-semibold">
-          Login
+        <Link to={isToken ? "/" : "/login"}>
+          {isToken ? "Sign Out" : "Login"}
         </Link>
         <button className="font-semibold ms-5 me-2">Search</button>
         <button className="font-semibold">Cart</button>
