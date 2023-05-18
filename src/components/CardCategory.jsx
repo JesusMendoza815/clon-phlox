@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import PropTypes from 'prop-types';
 
 export default function CardCategory({ categoryData, bgColor }) {
-  console.log(typeof bgColor, bgColor);
 
   return (
     <div 
