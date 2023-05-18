@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../constants/contansts";
+import { useContext } from "react";
+import { CartContext } from '../Context/CartContext';
 import '../styles/ProductsDetails.scss';
-import PropTypes from 'prop-types';
 import star from '../../public/star.svg'
 
 export default function ProductsDetails() {
   const { id } = useParams();
-  const { data, error, isPending } = useFetch(`${BASE_URL}/${id}`);
+  const { data, isPending } = useFetch(`${BASE_URL}/${id}`);
 
   return (
     <>
@@ -22,6 +23,7 @@ export default function ProductsDetails() {
 
 function DetailsCard({ data }) {
   const { image, title, description, price, rating } = data;
+  const { addToCart, cartItems } = useContext(CartContext);
 
   const renderRatingStars = () => {
     const stars = [];
@@ -43,19 +45,14 @@ function DetailsCard({ data }) {
           <h5 className="text-[1rem] ms-2">{rating.count} opiniones</h5>
         </span>
         <span className="flex mt-10">
-          <button className="btn btn-add me-5 font-semibold">Agregar al carrito</button>
+          <button 
+            className="btn btn-add me-5 font-semibold"
+            onClick={() => addToCart(data)}>
+              Agregar al carrito
+          </button>
           <button className="btn bg-red-500 text-white font-semibold">Comprar</button>
         </span>
       </div>
     </div>
   )
 }
-
-DetailsCard.propTypes = {
-  data: PropTypes.object.isRequired, // Add the missing prop type validation
-  image: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired
-};

@@ -8,6 +8,7 @@ import ShoppingCartButton from './ShoppingCart'
 
 export default function Navbar() {
   const { isToken } = useContext(AuthContext);
+
   return (
     <nav className="flex justify-between items-center h-[4rem]">
       <div>
