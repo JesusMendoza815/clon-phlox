@@ -1,20 +1,44 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/Login.scss";
-import { BASE_URL } from "../constants/contansts";
-import { useLoginFetch } from "../hooks/useLoginFetch";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-
-  const loginUser = () => {
-    const { tokenUser, error } = useLoginFetch(
-      `https://fakestoreapi.com/auth/login`,
-      user,
-      password
-    );
-    console.log(tokenUser);
+  const [token, setToken] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const loginToken = async (url, user, password) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user,
+          password: password,
+        }),
+      });
+      if (!response.ok) {
+        throw {
+          error: true,
+          status: response.status,
+          statusText: !response.statusText
+            ? "Ocurrio un error"
+            : response.statusText,
+        };
+      }
+      let data = await response.json();
+      setToken(data);
+      navigate("/home");
+      setError({ error: false });
+    } catch (error) {
+      setError({ error: false });
+    }
   };
+
   return (
     <main>
       <Navbar />
@@ -92,7 +116,11 @@ function Login() {
             <div>
               <button
                 onClick={() => {
-                  loginUser();
+                  loginToken(
+                    "https://fakestoreapi.com/auth/login",
+                    user,
+                    password
+                  );
                 }}
                 type="submit"
                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
