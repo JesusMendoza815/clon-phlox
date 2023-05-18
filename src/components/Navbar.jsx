@@ -11,10 +11,10 @@ export default function Navbar() {
   return (
     <nav className="flex justify-between items-center h-[4rem]">
       <div>
-        <Link to="/home" className="font-bold text-2xl" id="logo">
+        <Link to="/" className="font-bold text-2xl" id="logo">
           PHLOX
         </Link>
-        <Link to="/home" className="font-semibold ms-5">
+        <Link to="/" className="font-semibold ms-5">
           Home
         </Link>
         <Link to="/shop" className="font-semibold ms-5">

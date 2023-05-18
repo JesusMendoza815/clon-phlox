@@ -9,8 +9,6 @@ export default function ProductsDetails() {
   const { id } = useParams();
   const { data, error, isPending } = useFetch(`${BASE_URL}/${id}`);
 
-  console.log(error, data);
-
   return (
     <>
     {
