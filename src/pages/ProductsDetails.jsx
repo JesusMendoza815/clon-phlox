@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../constants/contansts";
 import '../styles/ProductsDetails.scss';
 import PropTypes from 'prop-types';
-import star from '../../public/star.svg'
+import star from '../../public/star.svg';
 
 export default function ProductsDetails() {
   const { id } = useParams();
@@ -11,24 +12,34 @@ export default function ProductsDetails() {
 
   console.log(error, data);
 
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = () => {
+    setCartItems((prevItems) => [...prevItems, data])
+    console.log(data)
+  };
+  
+  
+  
+
   return (
     <>
-    {
-      isPending 
-      ? <h2>Loading :3 ...</h2>
-      : <DetailsCard data={data} />
-    }
+      {isPending ? (
+        <h2>Loading :3 ...</h2>
+      ) : (
+        <DetailsCard data={data} addToCart={addToCart} />
+      )}
     </>
   );
 }
 
-function DetailsCard({ data }) {
+function DetailsCard({ data, addToCart }) {
   const { image, title, description, price, rating } = data;
 
   const renderRatingStars = () => {
     const stars = [];
     for (let i = 1; i <= Math.round(rating.rate); i++) {
-      stars.push(<img key={`star-rate-${i}`} src={star} alt="star image" className="me-6"/>);
+      stars.push(<img key={`star-rate-${i}`} src={star} alt="star image" className="me-6" />);
     }
     return stars;
   };
@@ -41,23 +52,19 @@ function DetailsCard({ data }) {
         <h4 className="text-[1.8rem] my-5">$ {price}</h4>
         <p className="my-5">{description}</p>
         <span className="flex items-center">
-        {renderRatingStars()}
+          {renderRatingStars()}
           <h5 className="text-[1rem] ms-2">{rating.count} opiniones</h5>
         </span>
         <span className="flex mt-10">
-          <button className="btn btn-add me-5 font-semibold">Agregar al carrito</button>
+          <button className="btn btn-add me-5 font-semibold" onClick={() => addToCart(data)}>Agregar al carrito</button>
           <button className="btn bg-red-500 text-white font-semibold">Comprar</button>
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 DetailsCard.propTypes = {
-  data: PropTypes.object.isRequired, // Add the missing prop type validation
-  image: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired
+  data: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired
 };
