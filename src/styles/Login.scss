@@ -1,3 +1,19 @@
 .titleLogin {
   font-size: 2rem;
 }
+
+.loadingPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  img {
+    width: 30rem;
+    height: 30rem;
+  }
+}

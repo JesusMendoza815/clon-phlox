@@ -50,7 +50,7 @@ function Login() {
   return (
     <main>
       {isLoading && (
-        <div>
+        <div className="loadingPage">
           <h1>Loading...</h1> <img src={loading} alt="" />{" "}
         </div>
       )}
