@@ -38,8 +38,7 @@ function Login() {
       }
       let data = await response.json();
       setToken(data);
-      signIn(token);
-
+      signIn(data.token);
       navigate("/home");
       setLoding(false);
       setError({ error: false });
